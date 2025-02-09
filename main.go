@@ -1,13 +1,23 @@
-// Package main - main package
+// revive:disable-next-line
 package main
 
 import (
-	"github/Asac2142/go-cli-app/cmd"
-	"github/Asac2142/go-cli-app/file"
-	"github/Asac2142/go-cli-app/task"
+	"fmt"
+	"github/Asac2142/go-cli-app/internal/cmd"
+	"github/Asac2142/go-cli-app/internal/file"
+	"github/Asac2142/go-cli-app/internal/task"
 )
 
 func main() {
 	f := file.New[task.TContent]()
-	cmd.HandleTrackerCLI(f)
+	err := cmd.HandleTrackerCLI(f)
+	if err != nil {
+		printError(err)
+	}
+}
+
+func printError(err error) {
+	if err != nil {
+		fmt.Printf("Issue found: %v\n", err)
+	}
 }

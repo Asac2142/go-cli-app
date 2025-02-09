@@ -1,13 +1,12 @@
-// Package task - Task structure
+// Package task handles task operations and task definitions.
 package task
 
 import (
 	"errors"
+	"github/Asac2142/go-cli-app/internal/file"
 	"slices"
 	"strings"
 	"time"
-
-	"github/Asac2142/go-cli-app/file"
 )
 
 // Status - task status ("todo", "in-progress", "done")
@@ -15,7 +14,7 @@ type Status string
 
 const (
 	Todo       Status = "todo"        // Todo status
-	Inprogress Status = "in-progress" // Inprogress status
+	InProgress Status = "in-progress" // InProgress status
 	Done       Status = "done"        // Done status
 )
 
@@ -109,34 +108,29 @@ func (t *Task) Delete(id int) error {
 	return t.file.Write(&filtered)
 }
 
-// GetByStatus - returns a list of tasks by status. If no status is provided, it returns all existing tasks.
-func (t *Task) GetByStatus(s *Status) (*[]TContent, error) {
-	var _tasks []TContent
-
-	if s == nil {
-		tasks, err := t.file.Read()
-		if err != nil {
-			return nil, err
-		}
-
-		return &tasks, nil
-	}
+// GetByStatus returns a list of tasks by status. If no status is provided, it returns all existing tasks.
+func (t *Task) GetByStatus(s *Status) ([]TContent, error) {
+	var tasks []TContent
 
 	tasks, err := t.file.Read()
 	if err != nil {
 		return nil, err
 	}
 
+	if s == nil {
+		return tasks, nil
+	}
+
 	for i := 0; i < len(tasks); i++ {
 		if tasks[i].Status == *s {
-			_tasks = append(_tasks, tasks[i])
+			tasks = append(tasks, tasks[i])
 		}
 	}
 
-	return &_tasks, nil
+	return tasks, nil
 }
 
-// UpdateStatus - updates a task status given an id.
+// UpdateStatus updates a task status given an id.
 func (t *Task) UpdateStatus(id int, s Status) error {
 	tasks, err := t.file.Read()
 	if err != nil {
