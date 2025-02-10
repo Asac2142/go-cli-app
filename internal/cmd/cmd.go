@@ -4,10 +4,11 @@ package cmd
 import (
 	"errors"
 	"fmt"
-	"github/Asac2142/go-cli-app/internal/file"
-	"github/Asac2142/go-cli-app/internal/task"
 	"os"
 	"strconv"
+
+	"github.com/Asac2142/go-cli-app/internal/file"
+	"github.com/Asac2142/go-cli-app/internal/task"
 )
 
 const (

@@ -3,10 +3,11 @@ package task
 
 import (
 	"errors"
-	"github/Asac2142/go-cli-app/internal/file"
 	"slices"
 	"strings"
 	"time"
+
+	"github.com/Asac2142/go-cli-app/internal/file"
 )
 
 // Status - task status ("todo", "in-progress", "done")

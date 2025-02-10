@@ -3,10 +3,11 @@ package main
 
 import (
 	"fmt"
-	"github/Asac2142/go-cli-app/internal/cmd"
-	"github/Asac2142/go-cli-app/internal/file"
-	"github/Asac2142/go-cli-app/internal/task"
 	"os"
+
+	"github.com/Asac2142/go-cli-app/internal/cmd"
+	"github.com/Asac2142/go-cli-app/internal/file"
+	"github.com/Asac2142/go-cli-app/internal/task"
 )
 
 func main() {
