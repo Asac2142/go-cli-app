@@ -55,7 +55,6 @@ func (f *File[T]) Read() ([]T, error) {
 	}
 
 	if len(bytes) == 0 {
-		//return make([]T, 0), nil
 		return nil, nil
 	}
 
