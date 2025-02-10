@@ -39,12 +39,10 @@ func (f *File[T]) Read() ([]T, error) {
 	file, err := os.Open(filename)
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
-			if file, err = os.Create(filename); err != nil {
-				return nil, fmt.Errorf("creating file: %w", err)
-			}
-		} else {
-			return nil, fmt.Errorf("opening file: %w", err)
+			return nil, nil
 		}
+
+		return nil, fmt.Errorf("opening file: %w", err)
 	}
 
 	defer closer(file, &err, "close file")
