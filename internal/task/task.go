@@ -119,7 +119,7 @@ func (t *Task) GetByStatus(s *Status) ([]TContent, error) {
 	}
 
 	if s == nil {
-		return tasks, nil
+		return tc, nil
 	}
 
 	for i := 0; i < len(tc); i++ {
