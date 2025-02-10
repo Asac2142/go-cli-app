@@ -21,14 +21,14 @@ func New[T any]() *File[T] {
 
 // Write - writes tasks into a JSON file
 func (f *File[T]) Write(data *[]T) error {
-	asJSON, err := json.Marshal(data)
+	bytes, err := json.Marshal(data)
 	if err != nil {
-		return fmt.Errorf("marshal file: %w", err)
+		return fmt.Errorf("marshalling file: %w", err)
 	}
 
-	err = os.WriteFile(filename, asJSON, 0644)
+	err = os.WriteFile(filename, bytes, 0644)
 	if err != nil {
-		return err
+		return fmt.Errorf("writing file: %w", err)
 	}
 
 	return nil

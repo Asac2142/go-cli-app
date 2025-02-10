@@ -12,10 +12,11 @@ import (
 // Status - task status ("todo", "in-progress", "done")
 type Status string
 
+// revive:disable-next-line
 const (
-	Todo       Status = "todo"        // Todo status
-	InProgress Status = "in-progress" // InProgress status
-	Done       Status = "done"        // Done status
+	Todo       Status = "todo"
+	InProgress Status = "in-progress"
+	Done       Status = "done"
 )
 
 // Task - task structure
