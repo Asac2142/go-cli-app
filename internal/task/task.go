@@ -113,7 +113,7 @@ func (t *Task) Delete(id int) error {
 func (t *Task) GetByStatus(s *Status) ([]TContent, error) {
 	var tasks []TContent
 
-	tasks, err := t.file.Read()
+	tc, err := t.file.Read()
 	if err != nil {
 		return nil, err
 	}
@@ -122,9 +122,9 @@ func (t *Task) GetByStatus(s *Status) ([]TContent, error) {
 		return tasks, nil
 	}
 
-	for i := 0; i < len(tasks); i++ {
-		if tasks[i].Status == *s {
-			tasks = append(tasks, tasks[i])
+	for i := 0; i < len(tc); i++ {
+		if tc[i].Status == *s {
+			tasks = append(tasks, tc[i])
 		}
 	}
 

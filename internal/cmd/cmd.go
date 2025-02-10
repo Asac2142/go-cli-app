@@ -151,7 +151,7 @@ func listTasks(args []string, t *task.Task) error {
 func handlePrintTasks(s *task.Status, t *task.Task) error {
 	tasks, err := t.GetByStatus(s)
 	if err != nil {
-		return fmt.Errorf("an error occured while printing tasks %w", err)
+		return err
 	}
 
 	if len(tasks) == 0 {
