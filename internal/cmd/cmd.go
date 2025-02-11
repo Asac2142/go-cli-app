@@ -132,7 +132,7 @@ func listTasks(args []string, t *task.Task) error {
 	}
 
 	if len(args) > 2 {
-		return errors.New("listing tasks only requires 2 arguments")
+		return errors.New("list tasks only requires 2 arguments")
 	}
 
 	status := task.Status(args[1])

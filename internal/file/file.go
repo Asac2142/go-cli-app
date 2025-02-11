@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io"
 	"os"
 )
 
@@ -23,12 +22,12 @@ func New[T any]() *File[T] {
 func (f *File[T]) Write(data *[]T) error {
 	bytes, err := json.Marshal(data)
 	if err != nil {
-		return fmt.Errorf("marshalling file: %w", err)
+		return fmt.Errorf("marshal file: %w", err)
 	}
 
 	err = os.WriteFile(filename, bytes, 0644)
 	if err != nil {
-		return fmt.Errorf("writing file: %w", err)
+		return fmt.Errorf("write file: %w", err)
 	}
 
 	return nil
@@ -36,20 +35,14 @@ func (f *File[T]) Write(data *[]T) error {
 
 // Read - reads tasks from json file
 func (f *File[T]) Read() ([]T, error) {
-	file, err := os.Open(filename)
-	if err != nil {
-		if errors.Is(err, os.ErrNotExist) {
-			return nil, nil
-		}
+	bytes, err := os.ReadFile(filename)
 
-		return nil, fmt.Errorf("opening file: %w", err)
+	if errors.Is(err, os.ErrNotExist) {
+		return nil, nil
 	}
 
-	defer closer(file, &err, "close file")
-
-	bytes, err := os.ReadFile(file.Name())
 	if err != nil {
-		return nil, fmt.Errorf("reading file: %w", err)
+		return nil, fmt.Errorf("read file: %w", err)
 	}
 
 	if len(bytes) == 0 {
@@ -60,15 +53,8 @@ func (f *File[T]) Read() ([]T, error) {
 
 	err = json.Unmarshal(bytes, &data)
 	if err != nil {
-		return nil, fmt.Errorf("unmarshalling file: %w", err)
+		return nil, fmt.Errorf("unmarshal file: %w", err)
 	}
 
 	return data, nil
-}
-
-func closer(c io.Closer, errp *error, msg string) {
-	err := c.Close()
-	if *errp == nil && err != nil {
-		*errp = fmt.Errorf("%v: %w", msg, err)
-	}
 }
